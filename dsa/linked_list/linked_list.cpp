@@ -26,9 +26,7 @@ struct Node{
     Node* next;
 };
 
-Node* head;    // Global, Pointer to the head node
-
-void insert_at_beginning(int x)
+void insert_at_beginning(Node** pointerToHead, int x)
 {
     // Create the node
     Node * temp = new Node;
@@ -36,14 +34,14 @@ void insert_at_beginning(int x)
     temp->next = NULL;
     
     // If list is empty
-    if(head==NULL)
+    if(*pointerToHead == NULL)
     {
-        head = temp;
+        *pointerToHead = temp;
     }
     else
     {
-        temp->next = head;
-        head = temp;
+        temp->next = *pointerToHead;
+        *pointerToHead = temp;
     }
     
     // Smaller version
@@ -51,9 +49,9 @@ void insert_at_beginning(int x)
     // head = temp;
 }
 
-void print_linked_list()
+void print_linked_list(Node** pointerToHead)
 {
-    Node * temp = head;
+    Node * temp = *pointerToHead;
     
     while(temp != NULL)
     {
@@ -67,7 +65,7 @@ void print_linked_list()
 int main()
 {   
     // Empty list
-    head = NULL; 
+    Node* head = NULL;    // Pointer to the head node
     
     std::cout<<"How many numbers?\n";
     int n{};
@@ -78,8 +76,8 @@ int main()
     {
         std::cout<<"Enter the number: \n";
         std::cin >> x;
-        insert_at_beginning(x);
-        print_linked_list();
+        insert_at_beginning(&head, x);
+        print_linked_list(&head);
     }
     
 }
