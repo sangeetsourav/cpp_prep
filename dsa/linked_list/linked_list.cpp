@@ -153,6 +153,28 @@ void print_linked_list()
     std::cout<<"\n";
 }
 
+// Reverse the links
+void reverse_iterative()
+{
+    Node* location = head;
+    Node* previous_node = NULL;
+    
+    while(location->next!=NULL)
+    {
+        Node* next_node = location->next;
+        
+        location->next = previous_node;
+        
+        previous_node = location;
+        
+        location = next_node;
+    }
+    
+    // For final node
+    location->next = previous_node;
+    head = location;
+}
+
 int main()
 {   
     // Empty list
@@ -174,6 +196,18 @@ int main()
     delete_at(100); //3,1
     print_linked_list();    
     delete_at(2); //3
-    print_linked_list();    
-    
+    print_linked_list();   
+    insert_at(99,2); //3, 99
+    print_linked_list();   
+    insert_at(78,2); //3, 78, 99
+    print_linked_list();   
+    insert_at(34,1); //34, 3, 78, 99
+    print_linked_list();       
+    reverse_iterative(); // 99, 78, 3, 34
+    print_linked_list();
+    delete_at(1);
+    delete_at(1);    
+    delete_at(1); // 34 
+    reverse_iterative(); // 34
+    print_linked_list();
 }
