@@ -153,6 +153,23 @@ void print_linked_list()
     std::cout<<"\n";
 }
 
+void print_linked_list_recursion(Node * n, bool reverse)
+{
+    if(n==NULL)
+    {
+        return; //Exit condition
+    }
+    if(!reverse)
+    {
+        std::cout<<n->data<<' ';
+    }
+    print_linked_list_recursion(n->next, reverse);
+    if(reverse)
+    {
+        std::cout<<n->data<<' ';
+    }
+}
+
 // Reverse the links
 void reverse_iterative()
 {
@@ -173,6 +190,21 @@ void reverse_iterative()
     // For final node
     location->next = previous_node;
     head = location;
+}
+
+void reverse_recursion(Node * n)
+{
+    if(n->next==NULL)
+    {
+        // So now we are at the last node.
+        head = n;
+        return;
+    }
+    
+    reverse_recursion(n->next);
+    // We go backwards
+    n->next->next = n;
+    n->next = NULL;
 }
 
 int main()
@@ -209,5 +241,15 @@ int main()
     delete_at(1);    
     delete_at(1); // 34 
     reverse_iterative(); // 34
+    print_linked_list();
+    insert_at(35,2);
+    insert_at(36,3);   
+    insert_at(37,4);    //34, 35, 36, 37
+    print_linked_list_recursion(head,false); //34, 35, 36, 37
+    std::cout<<"\n";
+    print_linked_list_recursion(head,true); //37, 36, 35, 34
+    std::cout<<"\n";
+    print_linked_list(); //34, 35, 36, 37
+    reverse_recursion(head); //37, 36, 35, 34
     print_linked_list();
 }
